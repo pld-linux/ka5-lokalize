@@ -5,7 +5,7 @@ Summary:	Lokalize - computer-aided translation system
 Summary(pl.UTF-8):	Lokalize - system komputerowo wspomaganego tłumaczenia
 Name:		ka5-%{kaname}
 Version:	18.12.1
-Release:	2
+Release:	3
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Applications
 Source0:	https://download.kde.org/stable/applications/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
@@ -72,10 +72,11 @@ Możliwości:
 %build
 install -d build
 cd build
-%cmake \
+%cmake .. \
 	-G Ninja \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	..
+	-DHTML_INSTALL_DIR=%{_kdedocdir} \
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+
 %ninja_build
 
 %install
@@ -83,7 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
 
-%find_lang %{kaname} --all-name --with-kde
+%find_lang %{kaname} --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
