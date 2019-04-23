@@ -1,13 +1,14 @@
 %define		kdeappsver	18.12.1
 %define		qtver		5.9.0
 %define		kaname		lokalize
-Summary:	lokalize
+Summary:	Lokalize - computer-aided translation system
+Summary(pl.UTF-8):	Lokalize - system komputerowo wspomaganego tłumaczenia
 Name:		ka5-%{kaname}
 Version:	18.12.1
-Release:	1
+Release:	2
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Applications
-Source0:	http://download.kde.org/stable/applications/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
+Source0:	https://download.kde.org/stable/applications/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
 # Source0-md5:	eb987cdf4bf03219c321980f232b1f13
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
@@ -33,7 +34,7 @@ BuildRequires:	kf5-kxmlgui-devel >= 5.14.0
 BuildRequires:	kf5-sonnet-devel >= 5.14.0
 BuildRequires:	ninja
 BuildRequires:	qt5-build >= %{qtver}
-BuildRequires:	rpmbuild(macros) >= 1.164
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	shared-mime-info
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -45,10 +46,25 @@ productivity and quality assurance. It is targeted for software
 translation and also integrates external conversion tools for
 freelance office document translation.
 
-Features
+Features:
+- Project management overview
+- Translation merging (synchronization)
+- Translation memory
+- Glossary
+- Spell-checking
 
-• Project management overview • Translation merging (synchronization)
-• Translation memory • Glossary • Spell-checking
+%description -l pl.UTF-8
+Lokalize to system komputerowo wspomaganego tłumaczenia, skupiający
+się na produktywności i zapewnieniu jakości. Głównym zastosowaniem
+jest tłumaczenie oprogramowania; zawiera także narzędzia do
+zewnętrznej konwersji do tłumaczenia dokumentów biurowych.
+
+Możliwości:
+- widok ogólny zarządzania projektem
+- łączenie tłumaczeń (synchronizacja)
+- pamięć tłumaczeń
+- słownik pojęć
+- sprawdzanie pisowni
 
 %prep
 %setup -q -n %{kaname}-%{version}
@@ -64,13 +80,13 @@ cd build
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %ninja_install -C build
 
 %find_lang %{kaname} --all-name --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
 
 %files -f %{kaname}.lang
 %defattr(644,root,root,755)
